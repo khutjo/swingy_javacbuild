@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Random;
+
 
 //************************************************************************************************
 //************************************************************************************************
@@ -21,6 +23,7 @@ class play {
 
     public int getXP(){return XP;}
     public int getLevel(){return Level;}
+    public void setXP(int xpadd){XP += xpadd;}
     public boolean getFight(){return Fight;}
     public boolean getAtWall(){return AtWall;}
     public char  getEnemyClass(){return EnemyClass;}
@@ -43,6 +46,34 @@ class play {
 		AtWall = false;
 	}
 
+    private int LevelUpXp(){
+       return (Level * 1000) + (((Level - 1) * (Level - 1)) * 450);
+    }
+
+    public void UnSetFight(){
+        Fight = false;
+    }
+
+    public void UnSetAtWalL(){
+        Fight = false;
+    }
+
+    public char [][] LevelUp(GenMap genmap, char [][] map){
+        int levelup = LevelUpXp();
+        System.out.println("A");
+        if (XP > levelup){
+        System.out.println("B");
+            Level++;
+        }
+        if (getAtWall()){
+        System.out.println("C");
+            UnSetAtWalL();
+            return genmap.makemap(Level);
+        }
+
+        return map;
+    }
+
 	private char[][] copymap(char [][]map){
 		char [][] newmap = new char[MapSize][MapSize];
 		for (int i = 0; i < MapSize; i++)
@@ -50,8 +81,9 @@ class play {
 				newmap[i][j] = map[i][j];
 		return 	newmap;	
 	}
-
+    /////input
 	private String hardcodemove(){
+        System.out.println("Enter direction : ");
 		return new ReadConsole().that();
 	}
 	
@@ -129,7 +161,7 @@ class ReadConsole {
 
         Scanner scanner = new Scanner(System.in);
 
-            System.out.println("Enter direction : ");
+
             String input = scanner.nextLine();
         // scanner.close();
         return input;
@@ -169,6 +201,72 @@ class ReadConsole {
 //************************************************************************************************
 //************************************************************************************************
 
+class Fight {
+    ///input
+    private String getmoves(){
+        System.out.println("Fight monster (yes/no) : ");
+		return new ReadConsole().that();
+    }
+
+    private boolean UserChoose(){
+        String userinput = getmoves();
+        if (userinput.equals("yes"))
+            return true;
+        if (userinput.equals("no"))
+            return false;
+        return false;
+    }
+
+    private boolean GetYourLuck(){
+        Random addspice = new Random();
+        Random chooseop = new Random(addspice.nextInt(1000));
+
+        if (chooseop.nextInt(10000) < 5000)
+            return true;
+        else return false;
+    }
+
+    private boolean DoILetThemWin(play playlogic){
+
+        if (playlogic.getEnemyClass() == 'A')
+            return true;
+        else if (playlogic.getEnemyClass() == 'C')
+            return false;
+        else if (playlogic.getEnemyClass() == 'B' && GetYourLuck())
+            return true;
+        return false;
+    }
+
+    public char [][] EngageFight(char [][] map, char [][] newmap, play playlogic){
+        if (!playlogic.getFight())
+            return newmap;
+
+        boolean choice = UserChoose();
+
+        if (choice && DoILetThemWin(playlogic)){
+            playlogic.setXP(100);
+            playlogic.UnSetFight();
+            return newmap;
+        }else if (!choice){
+            if (GetYourLuck()){
+                playlogic.UnSetFight();
+                return map;
+                }
+            else{
+                //output
+                System.out.println("The monster does not let you leave");
+                return (EngageFight(map, newmap, playlogic));
+            }
+        }
+        else {
+            ///output
+            System.out.println("you were kill brutaly but the gods of valhala acept your secrifice");
+            System.exit(0);
+        }
+        return newmap;
+    }
+
+}
 
 
 //************************************************************************************************
@@ -191,10 +289,13 @@ public class Main {
         }
         //ReadConsole hold = new ReadConsole();
         //hold.that();
-        play hold = new play(1, 34);
+        play hold = new play(1, 999);
+        Fight hold2 = new Fight();
         int runtime = 10;
         while(runtime-- > 0){
-        maps = hold.MakeMove(maps);
+        maps2 = hold.MakeMove(maps);
+        maps = hold2.EngageFight(maps, maps2, hold);
+        maps = hold.LevelUp(map, maps);
         System.out.println("at wall " + hold.getAtWall() + " is fight " + hold.getFight() + " enemy class "+ hold.getEnemyClass());
         for (char [] j : maps){
             for (char i : j)
