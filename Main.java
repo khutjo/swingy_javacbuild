@@ -55,18 +55,23 @@ class play {
     }
 
     public void UnSetAtWalL(){
-        Fight = false;
+        AtWall = false;
+    }
+
+    private void UpdateMapize(){
+        MapSize = ((((Level - 1) * 5) + 10) - (Level % 2));
     }
 
     public char [][] LevelUp(GenMap genmap, char [][] map){
         int levelup = LevelUpXp();
-        System.out.println("A");
+        System.out.println("A" + levelup);
         if (XP > levelup){
         System.out.println("B");
             Level++;
         }
         if (getAtWall()){
         System.out.println("C");
+            UpdateMapize();
             UnSetAtWalL();
             return genmap.makemap(Level);
         }
@@ -112,7 +117,7 @@ class play {
             NewCoords[0]--;
 		else if (move.equals("south"))
             NewCoords[0]++;
-        
+        else return MoveAdder(MyCoords);
 		return NewCoords;
     }
 
@@ -212,9 +217,10 @@ class Fight {
         String userinput = getmoves();
         if (userinput.equals("yes"))
             return true;
-        if (userinput.equals("no"))
+        else if (userinput.equals("no"))
             return false;
-        return false;
+        else
+            return UserChoose();
     }
 
     private boolean GetYourLuck(){
@@ -268,6 +274,71 @@ class Fight {
 
 }
 
+///*----------------------------------------------------------------------------------------------
+
+class PlayerData {
+    private String HeroName;
+    private int Level;
+    private int XP;
+    private int MapSize;
+    private boolean Fight;
+    private boolean AtWall;
+    private char EnemyClass;
+    private int Attack;
+    private int Defense;
+    private int HipPoint;
+    private HeroClass Heroclass;
+
+    public enum HeroClass {
+        Defense,
+        Attack,
+        HipPoint
+    }
+    private void UpdateMapize(){
+        MapSize = ((((Level - 1) * 5) + 10) - (Level % 2));
+    }
+
+    public PlayerData buildHeroName(String HeroName){ this.HeroName = HeroName; return this;}
+    public PlayerData buildLevel(int Level){ this.Level = Level; UpdateMapize(); return this;}
+    public PlayerData buildXP(int XP){ this.XP = XP; return this;}
+    public PlayerData buildFight(boolean Fight){ this.Fight = Fight; return this;}
+    public PlayerData buildAtWall(boolean AtWall){ this.AtWall = AtWall; return this;}
+    public PlayerData buildEnemyClass(char EnemyClass){ this.EnemyClass = EnemyClass; return this;}
+    public PlayerData buildAttack(int Attack){ this.Attack = Attack; return this;}
+    public PlayerData buildDefense(int Defense){ this.Defense = Defense; return this;}
+    public PlayerData buildHipPoint(int HipPoint){this.HipPoint = HipPoint; return this;}
+    public PlayerData buildHeroclass(HeroClass Heroclass){ this.Heroclass = Heroclass; return this;}
+
+    
+    public String getHeroName(){ return HeroName;}
+    public int getLevel(){ UpdateMapize(); return Level;}
+    public int getXP(){ return XP;}
+    public boolean getFight(){ return Fight;}
+    public boolean getAtWall(){ return AtWall;}
+    public char getEnemyClass(){ return EnemyClass;}
+    public int getMapSize(){return MapSize;}
+    public int getAttack(){ return Attack;}
+    public int getDefense(){ return Defense;}
+    public int getHipPoint(){ return HipPoint;}
+    public HeroClass getHeroclass(){ return Heroclass;}
+
+}
+
+
+//************************************************************************************************
+//************************************************************************************************
+//                                      player class
+//************************************************************************************************
+//************************************************************************************************
+
+class Aviter {
+    PlayerData PlayerStats;
+
+    public Aviter (PlayerData PlayerStats){
+        this.PlayerStats = PlayerStats;
+    }
+
+}
 
 //************************************************************************************************
 //************************************************************************************************
@@ -278,9 +349,27 @@ class Fight {
 
 public class Main {
 
+    private static void printmap(char [][] map){
+        for (char [] j : map){
+            for (char i : j)
+                System.out.print(i);
+            System.out.println("");
+        }
+        System.out.println("");
+    }
+
+    public static setupPlayerData(){
+
+    ///harcoded stuff
+        PlayerData hpld = new PlayerData();
+        hold.buildAtWall(false).buildAttack(1).buildDefense(0).buildEnemyClass('.').buildFight(false).buildHeroName("Thor").buildHeroclass(hold.leave.Attack).buildHipPoint(1).buildLevel(1);
+        return hold;
+    }
+
     public static void main(String[] args){
         GenMap map = new GenMap();
         char [][]maps = map.makemap(1);
+        PlayerData playerdata = setupPlayerData();
         char [][]maps2;// = map.makemap(1);
         for (char [] j : maps){
             for (char i : j)
@@ -293,16 +382,16 @@ public class Main {
         Fight hold2 = new Fight();
         int runtime = 10;
         while(runtime-- > 0){
-        maps2 = hold.MakeMove(maps);
-        maps = hold2.EngageFight(maps, maps2, hold);
-        maps = hold.LevelUp(map, maps);
-        System.out.println("at wall " + hold.getAtWall() + " is fight " + hold.getFight() + " enemy class "+ hold.getEnemyClass());
-        for (char [] j : maps){
-            for (char i : j)
-                System.out.print(i);
-            System.out.println("");
+            maps2 = hold.MakeMove(maps);
+            printmap(maps);
+            printmap(maps2);
+            maps = hold2.EngageFight(maps, maps2, hold);
+            printmap(maps);
+            maps = hold.LevelUp(map, maps);
+            printmap(maps);
+            System.out.println("at wall " + hold.getAtWall() + " is fight " + hold.getFight() + " enemy class "+ hold.getEnemyClass()+ " XP " + hold.getXP() + " level " + hold.getLevel());
+            printmap(maps);
         }
-    }
 
     }
 
