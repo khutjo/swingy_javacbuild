@@ -8,8 +8,10 @@ public class BasicHero {
 	private int XP;
 	private HeroArtefacsEnum HeroEfacs;
 	private char [][] Map;
+	private char [][] NewMap;
 	private int MapSize;
 	private int [] MyCoords;
+	private int [] MyNewCoords;
 	private char EnemyClass;
 	private boolean AtWall;
 	private boolean Fight;
@@ -96,8 +98,10 @@ public class BasicHero {
 	public BasicHero setXP(int xp){XP = xp; return this;}
 	public BasicHero setHeroEfacs(HeroArtefacsEnum heroefacs){HeroEfacs = heroefacs; return this;}
 	public BasicHero setMap(char [][] map){Map = map; return this;}
+	public BasicHero setNewMap(char [][] map){NewMap = map; return this;}
 	public BasicHero setMapSize(int mapsize){MapSize = mapsize; return this;}
 	public BasicHero setMyCoords(int [] mycoords){MyCoords = mycoords; return this;}
+	public BasicHero setMyNewCoords(int [] mycoords){MyNewCoords = mycoords; return this;}
 	public BasicHero setEnemyClass(char enemyclass){EnemyClass = enemyclass; return this;}
 	public BasicHero setAtWall(boolean atwall){AtWall = atwall; return this;}
 	public BasicHero setFight(Boolean fight){Fight = fight; return this;}
@@ -129,8 +133,10 @@ public class BasicHero {
 	public int getXP(){return XP;}
 	public HeroArtefacsEnum getHeroEfacs(){return HeroEfacs;}
 	public char [][] getMap(){return Map;}
+	public char [][] getNewMap(){return NewMap;}
 	public int getMapSize(){return MapSize;}
 	public int [] getMyCoords(){return MyCoords;}
+	public int [] getMyNewCoords(){return MyNewCoords;}
 	public char getEnemyClass(){return EnemyClass;}
 	public boolean getAtWall(){return AtWall;}
 	public boolean getFight(){return Fight;}

@@ -1,9 +1,15 @@
 // package rwfile;
 //
-//import java.util.regex.*;
+import java.util.regex.*;
 import java.util.*;
 import java.io.*;
 import java.io.FileNotFoundException;
+
+//************************************************************************************************
+//************************************************************************************************
+//                                      Create Hero
+//************************************************************************************************
+//************************************************************************************************
 
 public class CreateHero{
 
@@ -26,6 +32,12 @@ public class CreateHero{
 //		regax
 		if (HoldString.equals("")){
 			System.out.println("You cannot enter nothing as a name.");
+			getnewHeroName(namesinuse, basichero);
+			return ;
+		}
+
+		if (!HoldString.matches("[a-zA-Z0-9]+")){// && Pattern.matches("[^A-Z]+", HoldString) && Pattern.matches("[^0-9]+", HoldString)){
+			System.out.println("You name contains invalid charectors (A-z/0-9)");
 			getnewHeroName(namesinuse, basichero);
 			return ;
 		}

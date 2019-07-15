@@ -5,6 +5,13 @@ import java.util.*;
 import java.io.*;
 import java.io.FileNotFoundException;
 
+//************************************************************************************************
+//************************************************************************************************
+//                                      Print Out Basic Hero
+//************************************************************************************************
+//************************************************************************************************
+
+
 public class PrintOutBasicHero {
 //////for testomng	
 	public void PrintHeroDatafull (BasicHero holdbasic){
@@ -26,6 +33,7 @@ public class PrintOutBasicHero {
 				System.out.print(mpa[i][j]);
 			System.out.print("\n");
 		}
+
 	}
 
 	public void PrintHeroData (BasicHero holdbasic){
