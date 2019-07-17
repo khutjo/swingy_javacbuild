@@ -68,9 +68,16 @@ public class Fight {
         basicHero.setMap(basicHero.getNewMap());
     }
 
+    private void UpdateMap(){
+	basicHero.setMap(basicHero.getNewMap());
+	basicHero.setMyCoords(basicHero.getMyNewCoords());
+    }
+
     public void EngageFight(){
-        if (!basicHero.getFight())
-            return ;
+        if (!basicHero.getFight()){
+         	UpdateMap();
+		return ;
+	}
 
         boolean choice = UserChoose();
 
@@ -81,6 +88,7 @@ public class Fight {
         }else if (!choice){
             if (GetYourLuck()){
                 basicHero.setFight(false);
+		basicHero.setAtWall(false);
                 return ;
                 }
             else{

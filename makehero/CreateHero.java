@@ -87,7 +87,8 @@ public class CreateHero{
 		String HoldString;
 		///output
 		System.out.println("Chooce Hero class");
-		System.out.println("Attack\nIf you choose attack you gain more XP and more artefacs when you fight a monster but you must choose you bettles wiseley you great strangth invites greate monsters");
+		System.out.println("Attack\nIf you choose attack you gain more XP when you fight a monster,"+
+			       		"\nbut you must choose you bettles wiseley you great strangth invites greate monsters");
 		System.out.println("Defense\nIf you choose defanse you are more likely to win fight againt a monster but you gain less XP and artefacs my advice go balls out and choose Attack but if you are a caward you can choos this ontr");
 		HoldString = new ReadConsole().that();
 //		regax
