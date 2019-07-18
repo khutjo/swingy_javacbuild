@@ -14,6 +14,7 @@ import java.util.Random;
 
 public class PlayLogic {
     private BasicHero basicHero;
+    private WriteAction Printer;
 	// private int Level;
 	// private int MapSize;
     // private boolean Fight;
@@ -27,8 +28,9 @@ public class PlayLogic {
     // public boolean getAtWall(){return AtWall;}
     // public char  getEnemyClass(){return EnemyClass;}
 
-	public PlayLogic(BasicHero basichero){
+	public PlayLogic(BasicHero basichero, WriteAction printer){
         basicHero = basichero;
+        Printer = printer;
 	// 	MapSize = ((((level - 1) * 5) + 10) - (level % 2));
 	// 	Level = level;
 	// 	XP = xp;
@@ -76,6 +78,7 @@ public class PlayLogic {
             UpdateMapize();
             UnSetAtWalL();
             basicHero.setMap(new GenMap().makemap(basicHero.getLeval()));
+            basicHero.setNewMap(basicHero.getMap());
         }
     }
 
@@ -90,7 +93,7 @@ public class PlayLogic {
 	}
     /////input
 	private String hardcodemove(){
-        System.out.println("Enter direction : ");
+        Printer.OutputplayTextln("Enter direction : ");
 		return new ReadConsole().that();
 	}
 	
@@ -151,7 +154,22 @@ public class PlayLogic {
         basicHero.setNewMap(map);
     }
 
+    private boolean DoNotTouch(){
+        int len = basicHero.getMapSize();
+        char [][] map1 = basicHero.getMap();
+        char [][] map2 = basicHero.getNewMap();
+        for (int k = 0; k < len; k++)
+            for ( int g = 0; g < len; g++){
+                // System.out.println(map1[k][g] + " : "+ map2[k][g]);
+                if (map1[k][g] != map2[k][g])
+                    return true;
+            }
+         return false;
+    }
+
 	public void MakeMove(){
+        if (DoNotTouch())
+            return ;
 		copymap();
 		FindMyCoords(); 
         MoveAdder();

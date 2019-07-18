@@ -62,15 +62,21 @@ public class ReadHeroFileData {
 		basichero.stringsetEnamyClass(filelines.next());
 		basichero.stringsetFight(filelines.next());
 		basichero.stringsetAtwall(filelines.next());
-		basichero.stringsetMyCoords(filelines.next(), filelines.next());
+		basichero.stringsetMyCoords(filelines.next(), filelines.next(), filelines.next(), filelines.next());
 		basichero.setMapSize(Integer.parseInt(filelines.next()));
 		filelines.next();
 		int holdmapsize = basichero.getMapSize();
-		char [][] map = new char[basichero.getMapSize()][basichero.getMapSize()];
+		char [][] map = new char[holdmapsize][holdmapsize];
 		for (int i = 0; i < holdmapsize; i++){
 			map[i] = filelines.next().toCharArray();
 		}
 		basichero.setMap(map);
+		filelines.next();
+		char [][] newmap = new char[holdmapsize][holdmapsize];
+		for (int i = 0; i < holdmapsize; i++){
+			newmap[i] = filelines.next().toCharArray();
+		}
+		basichero.setNewMap(newmap);
 		return basichero;
 	}
 

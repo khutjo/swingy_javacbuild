@@ -74,12 +74,17 @@ public class BasicHero {
 		return this;
 	}
 
-	public BasicHero stringsetMyCoords(String X, String Y){
+	public BasicHero stringsetMyCoords(String X, String Y,String newX, String newY){
 		int [] holdcoords = new int[2];
+		int [] holdnewcoords = new int[2];
 
 		holdcoords[0] = Integer.parseInt(Y);
 		holdcoords[1] = Integer.parseInt(X);
 		MyCoords = holdcoords;
+
+		holdnewcoords[0] = Integer.parseInt(newY);
+		holdnewcoords[1] = Integer.parseInt(newX);
+		MyNewCoords = holdnewcoords;
 
 		return this;
 	}

@@ -88,8 +88,9 @@ public class CreateHero{
 		///output
 		System.out.println("Chooce Hero class");
 		System.out.println("Attack\nIf you choose attack you gain more XP when you fight a monster,"+
-			       		"\nbut you must choose you bettles wiseley you great strangth invites greate monsters");
-		System.out.println("Defense\nIf you choose defanse you are more likely to win fight againt a monster but you gain less XP and artefacs my advice go balls out and choose Attack but if you are a caward you can choos this ontr");
+			       		"\nbut you are mor likely to lose a fight");
+		System.out.println("Defense\nIf you choose defanse you are more likely to win fight againt a monster"
+						+"\nbut you gain less XP ");
 		HoldString = new ReadConsole().that();
 //		regax
 		if (HoldString.equals("") || (!HoldString.equals("Attack") && !HoldString.equals("Defense"))){
@@ -109,7 +110,7 @@ public class CreateHero{
 	}
 
 	public BasicHero MakeNewHero(Stack<BasicHero> savedheros){
-		GenMap newmap = new GenMap();
+		char [][] newmap = new GenMap().makemap(1);
 	//	CreateHero hold = new CreateHero();
 	//
 		if (savedheros == null)
@@ -119,9 +120,10 @@ public class CreateHero{
 		basicHero.setLevel(1)
 			.setXP(0)
 			.stringsetHeroEfacs("none")
-			.setMap(newmap.makemap(1))
+			.setMap(newmap)
+			.setNewMap(newmap)
 			.setMapSize(9)
-			.stringsetMyCoords("4", "4")
+			.stringsetMyCoords("4", "4", "4", "4")
 			.setEnemyClass('.')
 			.setAtWall(false)
 			.setFight(false);		
