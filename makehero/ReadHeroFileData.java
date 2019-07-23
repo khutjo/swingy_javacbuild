@@ -90,34 +90,34 @@ public class ReadHeroFileData {
 		return SortedHero;
 	}
 
-	private void printdata (BasicHero holdbasic){
-		System.out.println("\nname : "+holdbasic.getHeroName());
-		//System,out.println(getHeroClass());
-		System.out.println("level : "+holdbasic.getLeval());
-		System.out.println("XP : "+holdbasic.getXP());
-		//System.out.println(getHeroEfacs());
-		int x = holdbasic.getMapSize();
-		System.out.println("mapsize : "+x);
-		System.out.println("coords : "+holdbasic.getMyCoords()[0] +" "+ holdbasic.getMyCoords()[1]);
-		System.out.println("enemyclass : "+holdbasic.getEnemyClass());
-		System.out.println("atwall : "+holdbasic.getAtWall());
-		System.out.println("fight : "+holdbasic.getFight());
-		char [][] mpa = holdbasic.getMap();
-		for (int i = 0; i < x; i++){
-			System.out.print("\t");
-			for (int j = 0; j < x; j++)
-				System.out.print(mpa[i][j]);
-			System.out.print("\n");
-		}
-}
+// 	private void printdata (BasicHero holdbasic){
+// 		System.out.println("\nname : "+holdbasic.getHeroName());
+// 		//System,out.println(getHeroClass());
+// 		System.out.println("level : "+holdbasic.getLeval());
+// 		System.out.println("XP : "+holdbasic.getXP());
+// 		//System.out.println(getHeroEfacs());
+// 		int x = holdbasic.getMapSize();
+// 		System.out.println("mapsize : "+x);
+// 		System.out.println("coords : "+holdbasic.getMyCoords()[0] +" "+ holdbasic.getMyCoords()[1]);
+// 		System.out.println("enemyclass : "+holdbasic.getEnemyClass());
+// 		System.out.println("atwall : "+holdbasic.getAtWall());
+// 		System.out.println("fight : "+holdbasic.getFight());
+// 		char [][] mpa = holdbasic.getMap();
+// 		for (int i = 0; i < x; i++){
+// 			System.out.print("\t");
+// 			for (int j = 0; j < x; j++)
+// 				System.out.print(mpa[i][j]);
+// 			System.out.print("\n");
+// 		}
+// }
 
-	private void readoutdata (Stack<BasicHero> src){
-		Iterator<BasicHero> holdherodata = src.iterator();
+	// private void readoutdata (Stack<BasicHero> src){
+	// 	Iterator<BasicHero> holdherodata = src.iterator();
 	
-		while (holdherodata.hasNext()){
-			printdata(holdherodata.next());
-		}
-	}
+	// 	while (holdherodata.hasNext()){
+	// 		printdata(holdherodata.next());
+	// 	}
+	// }
 
 	public Stack<BasicHero> GetSavedHeros (){
 

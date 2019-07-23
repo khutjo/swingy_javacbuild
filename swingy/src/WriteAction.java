@@ -2,6 +2,7 @@ import javax.lang.model.util.ElementScanner6;
 
 public class WriteAction {
     private boolean outChanal;
+    private GuiToConsoleController bridge;
 
     public WriteAction(String outpath){
 //        String outpath = "gui";
@@ -10,28 +11,49 @@ public class WriteAction {
                 outChanal = true;
                 NewJFrame hold = new NewJFrame();
                 hold.screen();
+                setUpBridge(true);
             }
-            else if (outpath.equals("console"))
+            else if (outpath.equals("console")){
                 outChanal = false;
-            else
+                setUpBridge(false);
+            }else{
                 System.out.println("unrecognized  out channal");
+                System.exit(0);
+            }
         }else{
             System.out.println("No out channal selected (gui/console)");
             System.exit(0);
             }
         }
 
+    private void setUpBridge(boolean state){
+        bridge = GuiToConsoleController.getBridgeIntance();
+        bridge.setdirection(true)
+               .setchoose(true)
+               .settextField(false)
+               .setstartgame(false)
+               .setView(state)
+               .setTX(true)
+               .setRX(true)
+               .SetContent("")
+               .setInfoscreen("")
+               .setChoose("")
+               .setDirection("")
+               .setTextField("");
+    }
+    
         private void printtoconsole(String text){
             System.out.print(text);
         }
 
         private void printtogui(String text){
-            printtoconsole(text);
+            bridge.SetContent(text).setRX(true);
+            System.out.print(text);
         }
 
         public void OutputplayText(String text){
             if (outChanal)
-                printtogui(text);
+                bridge.SetContent(text).setRX(true);
             if (!outChanal)
                 printtoconsole(text);
         }

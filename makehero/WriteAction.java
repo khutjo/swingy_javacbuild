@@ -1,4 +1,4 @@
-import javax.lang.model.util.ElementScanner6;
+// import javax.lang.model.util.ElementScanner6;
 
 public class WriteAction {
     private boolean outChanal;
@@ -37,6 +37,34 @@ public class WriteAction {
                 printtogui("\n"+text);
             if (!outChanal)
                 printtoconsole("\n"+text);
+        }
+
+        
+
+        private void printtoconsolestats(BasicHero basichero){
+            String efacs = basichero.EnumToStringHeroEfacsEnum();
+
+            OutputplayTextln("Name      : "+basichero.getHeroName());
+            OutputplayTextln("Hero Type : "+basichero.EnumToStringHeroClass());
+            if (efacs.equals("Attack"))
+                OutputplayTextln("Artefacs  : Sword");
+            if (efacs.equals("Defense"))
+                OutputplayTextln("Artefacs  : Shield");
+            if (efacs.equals("HitPoints"))
+                OutputplayTextln("Artefacs  : Magic somthing");
+            OutputplayTextln("Level     : "+Integer.toString(basichero.getLeval()));
+            OutputplayTextln("XP Point  : "+Integer.toString(basichero.getXP()));
+        }
+        private void printtoguistats(BasicHero basichero){
+            printtoconsolestats(basichero);
+        }
+
+        public void OutputPlayerstates(BasicHero basichero){
+
+            if (outChanal)
+                printtoconsolestats(basichero);
+            else if (!outChanal)
+                printtoguistats(basichero);
         }
 
 }

@@ -1,11 +1,11 @@
 // package swingy;
 
-import java.util.Scanner;
+// import java.util.Scanner;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+// import java.io.BufferedReader;
+// import java.io.IOException;
+// import java.io.InputStreamReader;
 import java.util.Random;
 
 
@@ -169,6 +169,7 @@ public class Fight {
 
     public void EngageFight(){
         if (!basicHero.getFight()){
+            Printer.OutputplayTextln("coast clear");
          	UpdateMap();
 		return ;
 	}

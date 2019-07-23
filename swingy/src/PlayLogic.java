@@ -9,10 +9,12 @@
 public class PlayLogic {
     private BasicHero basicHero;
     private WriteAction Printer;
+    private GuiToConsoleController Bridge;
 
-	public PlayLogic(BasicHero basichero, WriteAction printer){
+	public PlayLogic(BasicHero basichero, WriteAction printer, GuiToConsoleController bridge){
         basicHero = basichero;
         Printer = printer;
+        Bridge = bridge;
 	}
 
 	private void ToWall(){
@@ -112,6 +114,7 @@ public class PlayLogic {
         char [][] map = basicHero.getMap();
         int [] MyCoords = {basicHero.getMyNewCoords()[0], basicHero.getMyNewCoords()[1]};
         if (map[MyCoords[0]][MyCoords[1]] != '.'){
+            System.out.println(map[MyCoords[0]][MyCoords[1]] +" "+ MyCoords[0] +" "+ MyCoords[1] );
             basicHero.setFight(true);
             basicHero.setEnemyClass(map[MyCoords[0]][MyCoords[1]]);
         }
@@ -146,19 +149,22 @@ public class PlayLogic {
          return false;
     }
     
-    public void SetUpMove(){
+    public int SetUpMove(){
         if (DoNotTouch())
-            return ;
+            return 2;
         copymap();
         FindMyCoords(); 
+        Bridge.setTX(false).setdirection(true);
         Printer.OutputplayTextln("Enter direction : ");
+        return 1;
     }
-    public void MakeMove(String move){
-        if (DoNotTouch())
-            return ;
+    
+    public int MakeMove(String move){
+        System.out.println("what"+move);
         MoveAdder(move);
         PutMoveToMap();
         ToWall();
         IsFight();
+        return 1;
     }
 }

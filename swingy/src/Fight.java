@@ -20,11 +20,14 @@ public class Fight {
     private BasicHero basicHero;
     private WriteAction Printer;
     private boolean FightRequest;
+    private String prize;
+    private GuiToConsoleController Bridge;
 
-    public Fight (BasicHero basichero, WriteAction printer){
+    public Fight (BasicHero basichero, WriteAction printer, GuiToConsoleController bridge){
         basicHero = basichero;
         Printer = printer;
         FightRequest = false;
+        Bridge = bridge;
     }
     
     ///input 
@@ -36,7 +39,7 @@ public class Fight {
 		return new ReadConsole().that();
     }
 
-    private boolean UserChoose(){
+    public boolean UserChoose(){
         String userinput = getmoves();
         if (userinput.equals("yes"))
             return true;
@@ -93,39 +96,39 @@ public class Fight {
         }
     }
 
-    private void GiveThemanefacs(String NewEfacs){
-            EfacsYouHave(NewEfacs);
-            String HoldString = new ReadConsole().that();
-            if (HoldString.equals("yes"))
-                basicHero.stringsetHeroEfacs(NewEfacs);
-            else if (HoldString.equals("no"))
-                return ;
-            else
-                GiveThemanefacs(NewEfacs);
-        
+    public int GiveThemanefacs(String state){
+            //String HoldString = new ReadConsole().that();
+            if (state.equals("yes")){
+                System.out.println("given");
+                basicHero.stringsetHeroEfacs(prize);}
+            else if (state.equals("no"))
+                return 1;
+        return 1;
     }
 
-    private void DoesHeGetAnArtefacs(){
+    public int DoTheyGetAnArtefacs(){
         Random addspice = new Random();
         int chance = new Random(addspice.nextInt(1000)).nextInt(10000);
 
         if (chance < 3000){
             if (chance < 1000){
                 Printer.OutputplayTextln("The monster droped a sheild");
-                GiveThemanefacs("Defense");
+                prize = "Defense";
             }
             else if (chance > 2000){
                 Printer.OutputplayTextln("The monster droped a sword you will win more fights with this");
-                GiveThemanefacs("Attack");
+                prize = "Attack";
             }
             else {
                 ///output
                 Printer.OutputplayTextln("The monster drop a thing that give you more hit points dont worry what it is");
-                GiveThemanefacs("HitPoints");
+                prize = "HitPoints";
             }
+            EfacsYouHave(prize);
+            Bridge.setTX(false).setchoose(true);
+            return 1;
         }
-
-
+        return 2;
     }
     private void TheyWon(){
         int XP = basicHero.getXP();
@@ -136,7 +139,7 @@ public class Fight {
         else if (basicHero.EnumToStringHeroClass().equals("Defense"))
         basicHero.setXP(XP + 100);
         basicHero.setMap(basicHero.getNewMap());
-        DoesHeGetAnArtefacs();
+
     }
 
     private void UpdateMap(){
@@ -166,33 +169,41 @@ public class Fight {
         return false;
     }
 
-
-    public void EngageFight(){
-        if (!basicHero.getFight()){
+    public int SetUpFight(){
+                if (!basicHero.getFight()){
          	UpdateMap();
-		return ;
+                System.out.println("\nskip ");
+		return 4;
 	}
-    //if (basicHero.EnumToStringHeroEfacsEnum().equals("Defense"))
-        boolean choice = UserChoose();
+                Bridge.setTX(false).setchoose(true);
+                System.out.println("\nnext ");
+                Printer.OutputplayTextln("You stumbled accross a monster do you want to fight it (yes/no) : ");
+         return 1;
+    }
+    
+    public int EngageFight(boolean choice){
 
+    //if (basicHero.EnumToStringHeroEfacsEnum().equals("Defense"))
+//        boolean choice = UserChoose();
         if (choice && DoILetThemWin()){
             TheyWon();
             basicHero.setFight(false);
-            return ;
+            Printer.OutputplayTextln("you bitch slapped it to death");
+            return 1;
         }else if (!choice){
             if (getrunLuck()){
                 RestMap();
                 basicHero.setFight(false);
                 basicHero.setAtWall(false);
                 FightRequest = false;
-                return ;
+                return 3;
             }
             else{
                 //output
+                Bridge.setTX(false).setchoose(true);
                 Printer.OutputplayTextln("The monster does not take no for an answer");
                 FightRequest = true;
-                EngageFight();
-                return ;
+                return 0;
             }
         }
         else {
@@ -202,13 +213,13 @@ public class Fight {
                 basicHero.setFight(false);
                 basicHero.setAtWall(false);
                 FightRequest = false;
-                return ;
+                return 3;
             }
             ///output
                 Printer.OutputplayTextln("you were kill brutaly but the gods of valhala accept your secrifice");
                 System.exit(0);
         }
-        return ;
+        return 0;
     }
 
 }

@@ -74,6 +74,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jButton9.setText("NO");
         jButton9.setPreferredSize(new java.awt.Dimension(51, 23));
+        jButton9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton9MouseClicked(evt);
+            }
+        });
 
         jButton10.setText("North");
         jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,6 +114,11 @@ public class NewJFrame extends javax.swing.JFrame {
         );
 
         jButton12.setText("YES");
+        jButton12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -123,8 +133,10 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jButton12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8)))
+                    .addComponent(jButton8)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))))
             .addComponent(jTextField2)
         );
         jPanel5Layout.setVerticalGroup(
@@ -151,6 +163,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
+        jTextArea3.setText("Press YES to start game\nor No To Exit");
         jScrollPane3.setViewportView(jTextArea3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -193,42 +206,75 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseClicked
         // TODO add your handling code here:
-        GuiToConsoleBridge bridge = GuiToConsoleBridge.getBridgeIntance();
+        GuiToConsoleController bridge = GuiToConsoleController.getBridgeIntance();
+        System.out.println("\nnorth");
         if (bridge.getdirection()){
-            bridge.setDirection("north");
+            System.out.println("\nonorth in");
+            bridge.setDirection("north").setTX(true).setdirection(false);
+            bridge.Getrequet();
+                jTextArea3.setText(bridge.getContent());
         }
     }//GEN-LAST:event_jButton10MouseClicked
 
     private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
         // TODO add your handling code here:
-        GuiToConsoleBridge bridge = GuiToConsoleBridge.getBridgeIntance();
+        GuiToConsoleController bridge = GuiToConsoleController.getBridgeIntance();
         if (bridge.getdirection()){
-            bridge.setDirection("south");
+            bridge.setDirection("south").setTX(true).setdirection(false);
+            bridge.Getrequet();
+                jTextArea3.setText(bridge.getContent());
         }
     }//GEN-LAST:event_jButton11MouseClicked
 
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
         // TODO add your handling code here:
-        GuiToConsoleBridge bridge = GuiToConsoleBridge.getBridgeIntance();
+        GuiToConsoleController bridge = GuiToConsoleController.getBridgeIntance();
         if (bridge.getdirection()){
-            bridge.setDirection("west");
+            bridge.setDirection("west").setTX(true).setdirection(false);
+            bridge.Getrequet();
+                jTextArea3.setText(bridge.getContent());
         }
     }//GEN-LAST:event_jButton7MouseClicked
 
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
         // TODO add your handling code here:
-        GuiToConsoleBridge bridge = GuiToConsoleBridge.getBridgeIntance();
+        GuiToConsoleController bridge = GuiToConsoleController.getBridgeIntance();
         if (bridge.getdirection()){
-            bridge.setDirection("east");
+            bridge.setDirection("east").setTX(true).setdirection(false);
+            bridge.Getrequet();
+                jTextArea3.setText(bridge.getContent());
         }
+                
     }//GEN-LAST:event_jButton8MouseClicked
+
+    private void jButton12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseClicked
+        // TODO add your handling code here:
+        GuiToConsoleController bridge = GuiToConsoleController.getBridgeIntance();
+        if (bridge.getchoose()){
+            bridge.setChoose("yes").setTX(true).setchoose(false);
+            bridge.Getrequet();
+
+                jTextArea3.setText(bridge.getContent());
+        }
+    }//GEN-LAST:event_jButton12MouseClicked
+
+    private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
+        // TODO add your handling code here:
+        GuiToConsoleController bridge = GuiToConsoleController.getBridgeIntance();
+        if (bridge.getchoose()){
+            bridge.setChoose("no").setTX(true).setchoose(false);
+            bridge.Getrequet();
+            
+                jTextArea3.setText(bridge.getContent());
+        }
+    }//GEN-LAST:event_jButton9MouseClicked
 
     /**
      * @param args the command line arguments
      */
     
     public void updatetext(String neww){
-//        jTextArea2.;
+        jTextArea3.setText(neww);
 //        jScrollPane2.setViewportView(jTextArea2);
     }
     public void screen() {
@@ -262,7 +308,8 @@ public class NewJFrame extends javax.swing.JFrame {
                 
             }
         });
-        jTextArea1.insert("NOoooooooooooo", 0);
+        updatetext("hello");
+        //jTextArea1.insert("NOoooooooooooo", 0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
