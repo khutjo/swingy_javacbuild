@@ -1,4 +1,4 @@
-// package swingy;
+package swingy_home;
 
 import java.util.Scanner;
 
@@ -216,7 +216,6 @@ public class Fight {
                 return 3;
             }
             ///output
-                new DeleteLoser(basicHero);
                 Printer.OutputplayTextln("you were kill brutaly but the gods of valhala accept your secrifice");
                 System.exit(0);
         }
