@@ -4,16 +4,16 @@ public class WriteAction {
     private boolean outChanal;
     private GuiToConsoleController bridge;
 
-    public WriteAction(String outpath){
+    public WriteAction(String []outpath){
 //        String outpath = "gui";
-        if (outpath.length() > 0){
-            if (outpath.equals("gui")){
+        if (outpath.length > 0){
+            if (outpath[0].equals("gui")){
                 outChanal = true;
                 NewJFrame hold = new NewJFrame();
                 hold.screen();
                 setUpBridge(true);
             }
-            else if (outpath.equals("console")){
+            else if (outpath[0].equals("console")){
                 outChanal = false;
                 setUpBridge(false);
             }else{

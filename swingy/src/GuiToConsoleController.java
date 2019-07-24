@@ -77,7 +77,6 @@ public class GuiToConsoleController {
    public GuiToConsoleController setRX (boolean state){RX = state; return this;}
    
    private void RunLogic(String input){
-                       System.out.println("\norder "+callorder);
         if (callorder == 0){
             playlogic.LevelUp();
             callorder += playlogic.SetUpMove();
@@ -108,7 +107,6 @@ public class GuiToConsoleController {
    
    private boolean IsGameOn(){
        if (!startgame){
-       System.out.println("\nletmeee ");
            if (Choose.equals("yes")){
                 startgame = true;
                 Choose = "";
@@ -122,7 +120,6 @@ public class GuiToConsoleController {
    }
    
    private boolean IsHeroChosen(){
-       System.out.println("\norder "+callorder);
        if (!herochosen){
            //System.out.println("chooser in");
            if (callorder == 0)
@@ -207,12 +204,6 @@ public class GuiToConsoleController {
         herochooser = new ChooseHero(savedheros, printer, this);
         callorder = 0;
 
-       //while (true){
-          // if (Choose.equals("yes")){
-           //    System.out.println("hello");
-         //      System.exit(0);
-       //    }
-       //}
    }
    
    private boolean validinput(){

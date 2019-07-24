@@ -79,20 +79,21 @@ public class Fight {
 
     private void EfacsYouHave(String NewEfacs){
         String OldEfacs = basicHero.EnumToStringHeroEfacsEnum();
+        String preout = Bridge.getContent();
         if (OldEfacs.equals(NewEfacs)){
-            Printer.OutputplayTextln("you already have this so what do you want to do (yes/no) : ");
+            Printer.OutputplayTextln(preout + "you already have this so what do you want to do (yes/no) : ");
         }
         else if (OldEfacs.equals("HitPoints")){
-            Printer.OutputplayTextln("you have an XP booster do you want to take this? (yes/no) : ");
+            Printer.OutputplayTextln(preout + "you have an XP booster do you want to take this? (yes/no) : ");
         }
         else if (OldEfacs.equals("Attack")){
-            Printer.OutputplayTextln("you have a Sword do you want to take this? (yes/no) : ");
+            Printer.OutputplayTextln(preout + "you have a Sword do you want to take this? (yes/no) : ");
         }
         else if (OldEfacs.equals("Defense")){
-            Printer.OutputplayTextln("you have an Shield do you want to take this? (yes/no) : ");
+            Printer.OutputplayTextln(preout + "you have an Shield do you want to take this? (yes/no) : ");
         }
         else if (OldEfacs.equals("none")){
-            Printer.OutputplayTextln("you have nothing just take it (yes/no) : ");
+            Printer.OutputplayTextln(preout + "you have nothing just take it (yes/no) : ");
         }
     }
 
