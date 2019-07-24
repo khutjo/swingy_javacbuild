@@ -12,11 +12,13 @@ import java.util.*;
 
 
 public class GuiToConsoleController {
+   private WriteAction Printer;
    private PlayLogic playlogic;
    private Fight fightlogic ;
    private AutoSave autosave;
    private static GuiToConsoleController HoldBridge;
    private Stack<BasicHero> SavedHeros;
+   private ReadConsole readline;
    private BasicHero Hero;
    private String content;
    private String infoscreen;
@@ -31,6 +33,7 @@ public class GuiToConsoleController {
    private boolean view;
    private boolean RX;
    private boolean TX;
+   private boolean herochosen;
    
    private GuiToConsoleController(){
 
@@ -97,7 +100,7 @@ public class GuiToConsoleController {
         }
 
         autosave.SaveStatus();
-        new PrintOutBasicHero().PrintHeroDatafull(Hero);
+        //Printer.PrintOutStates(Hero, false);
    }
    
    private boolean IsGameOn(){
@@ -115,10 +118,21 @@ public class GuiToConsoleController {
        return false;
    }
    
+   private boolean IsHeroChosen(){
+       
+       if (!herochosen){
+           
+       }
+       return false;
+   }
+   
    public void Getrequet(){
        
        if (IsGameOn())
            return ;
+       if (IsHeroChosen())
+           return ;
+           
        
        switch (Choose) {
            case "yes":
@@ -151,14 +165,16 @@ public class GuiToConsoleController {
            default:
                break;
        }
+
         Direction = "";
         Choose = "";
    }
    
-   public void run(Stack<BasicHero> savedheros, WriteAction printer){
+   public void rungui(Stack<BasicHero> savedheros, WriteAction printer){
         SavedHeros = savedheros;
         Iterator<BasicHero> HoldHero = SavedHeros.iterator();
 	Hero = HoldHero.next();
+        Printer = printer;
         playlogic = new PlayLogic(Hero, printer, this);
         fightlogic = new Fight(Hero, printer, this);
         autosave = new AutoSave(Hero);
@@ -170,5 +186,43 @@ public class GuiToConsoleController {
          //      System.exit(0);
        //    }
        //}
+   }
+   
+   private boolean validinput(){
+       String input = readline.that();
+        if (getdirection()){
+            if (input.equals("north") || input.equals("south") 
+                    || input.equals("west") || input.equals("east")){
+            setDirection(input).setTX(true).setdirection(false);
+            Getrequet();}
+        }
+        if (getchoose()){
+            if (input.equals("yes") || input.equals("no"))
+            setChoose(input).setTX(true).setchoose(false);
+            Getrequet();
+        }
+        if (gettextfield()){
+            setTextField(input).setTX(true).settextField(false);
+            Getrequet();
+        }
+        if (input.equals("exit"))
+            return false;
+        return true;
+   }
+   
+   public void runconsole(Stack<BasicHero> savedheros, WriteAction printer){
+        SavedHeros = savedheros;
+        Iterator<BasicHero> HoldHero = SavedHeros.iterator();
+	Hero = HoldHero.next();
+        playlogic = new PlayLogic(Hero, printer, this);
+        fightlogic = new Fight(Hero, printer, this);
+        autosave = new AutoSave(Hero);
+        readline = new ReadConsole();
+        callorder = 0;
+        boolean run = true;
+        printer.OutputplayTextln("Press YES to start game\nor No To Exit\n");
+        while (run){
+            run = validinput();
+        }
    }
 }

@@ -64,5 +64,17 @@ public class WriteAction {
             if (!outChanal)
                 printtoconsole("\n"+text);
         }
+        
+        //private void updateinfoscreen(BasicHero hero){
+          //  bridge.setInfoscreen(her
+        //}
+        
+        public void PrintOutStates(BasicHero hero, boolean call){
+            if (outChanal){
+                
+            }else if (call){
+                
+            }
+        }
 
 }

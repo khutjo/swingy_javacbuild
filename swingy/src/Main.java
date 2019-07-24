@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class Main {
 
-    public static void run(BasicHero basichero, WriteAction printer){
+/*    public static void run(BasicHero basichero, WriteAction printer){
 
         PlayLogic playlogic = new PlayLogic(basichero, printer);
         Fight fightlogic = new Fight(basichero, printer);
@@ -40,13 +40,17 @@ int holddd = 0;
         new PrintOutBasicHero().PrintHeroDatafull(basichero);
         }
     }
-
+*/
 
 	public static void main (String [] args){
-            WriteAction printer = new WriteAction("gui");
+            WriteAction printer = new WriteAction("console");
             Stack<BasicHero> HoldSavedHeros = new ReadHeroFileData().GetSavedHeros();
             GuiToConsoleController bridge = GuiToConsoleController.getBridgeIntance();
-            bridge.run(HoldSavedHeros, printer);
+            if (bridge.getView())
+                bridge.rungui(HoldSavedHeros, printer);
+            else
+                bridge.runconsole(HoldSavedHeros, printer);
+                
             //BasicHero HoldNewHero = new CreateHero().MakeNewHero(HoldSavedHeros);
 	//	Iterator<BasicHero> HoldHero = HoldSavedHeros.iterator();
 	//	BasicHero Hero = HoldHero.next();        
