@@ -16,7 +16,9 @@ public class GuiToConsoleController {
    private PlayLogic playlogic;
    private Fight fightlogic ;
    private AutoSave autosave;
+   private ChooseHero herochooser;
    private static GuiToConsoleController HoldBridge;
+   private CreateHero createhero;
    private Stack<BasicHero> SavedHeros;
    private ReadConsole readline;
    private BasicHero Hero;
@@ -61,6 +63,7 @@ public class GuiToConsoleController {
 
    
    public GuiToConsoleController SetContent (String input){content = input; return this;}
+   public GuiToConsoleController SetHero (BasicHero input){Hero = input; return this;}
    public GuiToConsoleController setInfoscreen (String input){infoscreen = input; return this;}
    public GuiToConsoleController setChoose (String input){Choose = input; return this;}
    public GuiToConsoleController setDirection (String input){Direction = input; return this;}
@@ -100,7 +103,7 @@ public class GuiToConsoleController {
         }
 
         autosave.SaveStatus();
-        //Printer.PrintOutStates(Hero, false);
+            Printer.PrintOutStates(Hero, false);
    }
    
    private boolean IsGameOn(){
@@ -109,7 +112,7 @@ public class GuiToConsoleController {
            if (Choose.equals("yes")){
                 startgame = true;
                 Choose = "";
-                RunLogic("start");
+                IsHeroChosen();
            }
            else if (Choose.equals("no"))
                    System.exit(0);
@@ -119,9 +122,36 @@ public class GuiToConsoleController {
    }
    
    private boolean IsHeroChosen(){
-       
+       System.out.println("\norder "+callorder);
        if (!herochosen){
-           
+           //System.out.println("chooser in");
+           if (callorder == 0)
+                callorder += herochooser.availableheros();
+           else if (callorder == 1)
+                callorder += herochooser.HeroChoice(TextField, Hero);
+           if (callorder == 2)
+                callorder += createhero.SetUpCreateHero();
+           else if (callorder == 3)    
+                callorder += createhero.getnewHeroName(TextField);
+           else if (callorder == 4)
+                callorder += createhero.getnewHeroClass(TextField);
+           else if (callorder == 5){
+                callorder = createhero.Save(Choose);
+                autosave = new AutoSave(Hero).savefull();
+           }
+           if (callorder == -1){
+               callorder = 0;
+               callorder += herochooser.availableheros();
+           }
+           if (callorder > 6){
+               callorder = 0;
+                herochosen = true;
+                playlogic = new PlayLogic(Hero, Printer, this);
+                fightlogic = new Fight(Hero, Printer, this);
+                autosave = new AutoSave(Hero);
+                RunLogic("start");
+           }
+           return true;
        }
        return false;
    }
@@ -172,12 +202,9 @@ public class GuiToConsoleController {
    
    public void rungui(Stack<BasicHero> savedheros, WriteAction printer){
         SavedHeros = savedheros;
-        Iterator<BasicHero> HoldHero = SavedHeros.iterator();
-	Hero = HoldHero.next();
         Printer = printer;
-        playlogic = new PlayLogic(Hero, printer, this);
-        fightlogic = new Fight(Hero, printer, this);
-        autosave = new AutoSave(Hero);
+        createhero = new CreateHero(savedheros, printer, this);
+        herochooser = new ChooseHero(savedheros, printer, this);
         callorder = 0;
 
        //while (true){
@@ -194,33 +221,41 @@ public class GuiToConsoleController {
             if (input.equals("north") || input.equals("south") 
                     || input.equals("west") || input.equals("east")){
             setDirection(input).setTX(true).setdirection(false);
-            Getrequet();}
+            Getrequet();
+            return true;}
         }
         if (getchoose()){
-            if (input.equals("yes") || input.equals("no"))
-            setChoose(input).setTX(true).setchoose(false);
+            if (input.equals("yes") || input.equals("no")){
+                setChoose(input).setTX(true).setchoose(false);
             Getrequet();
+            return true;
+            }
         }
         if (gettextfield()){
             setTextField(input).setTX(true).settextField(false);
             Getrequet();
+            return true;
         }
-        if (input.equals("exit"))
+        if (input.equals("stats") && herochosen){
+            Printer.PrintOutStates(Hero, true);
+            Printer.RePrint();
+            return true;
+        }else if (input.equals("exit"))
             return false;
+        else 
+            Printer.RePrint();
         return true;
    }
    
    public void runconsole(Stack<BasicHero> savedheros, WriteAction printer){
         SavedHeros = savedheros;
-        Iterator<BasicHero> HoldHero = SavedHeros.iterator();
-	Hero = HoldHero.next();
-        playlogic = new PlayLogic(Hero, printer, this);
-        fightlogic = new Fight(Hero, printer, this);
-        autosave = new AutoSave(Hero);
+        Printer = printer;
+        herochooser = new ChooseHero(savedheros, printer, this);
+        createhero = new CreateHero(savedheros, printer, this);
         readline = new ReadConsole();
         callorder = 0;
         boolean run = true;
-        printer.OutputplayTextln("Press YES to start game\nor No To Exit\n");
+        printer.OutputplayTextln("Enter YES to start game\nor No To Exit\n");
         while (run){
             run = validinput();
         }

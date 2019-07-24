@@ -113,7 +113,7 @@ public class PlayLogic {
     private void IsFight(){
         char [][] map = basicHero.getMap();
         int [] MyCoords = {basicHero.getMyNewCoords()[0], basicHero.getMyNewCoords()[1]};
-        if (map[MyCoords[0]][MyCoords[1]] != '.'){
+        if (map[MyCoords[0]][MyCoords[1]] != '.' && map[MyCoords[0]][MyCoords[1]] != 'M'){
             System.out.println(map[MyCoords[0]][MyCoords[1]] +" "+ MyCoords[0] +" "+ MyCoords[1] );
             basicHero.setFight(true);
             basicHero.setEnemyClass(map[MyCoords[0]][MyCoords[1]]);

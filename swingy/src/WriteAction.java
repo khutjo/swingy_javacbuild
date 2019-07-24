@@ -51,7 +51,11 @@ public class WriteAction {
             System.out.print(text);
         }
 
+        public void RePrint(){
+            printtoconsole("\n"+bridge.getContent());
+        }
         public void OutputplayText(String text){
+            bridge.SetContent(text).setRX(true);
             if (outChanal)
                 bridge.SetContent(text).setRX(true);
             if (!outChanal)
@@ -59,21 +63,27 @@ public class WriteAction {
         }
 
         public void OutputplayTextln(String text){
+            bridge.SetContent(text).setRX(true);
             if (outChanal)
                 printtogui("\n"+text);
             if (!outChanal)
                 printtoconsole("\n"+text);
         }
         
-        //private void updateinfoscreen(BasicHero hero){
-          //  bridge.setInfoscreen(her
-        //}
+        private void updateinfoscreen(BasicHero hero){
+          bridge.setInfoscreen("Hero State\n"+
+                    "\nname : "+hero.getHeroName()+
+                    "\nHeroClass : "+hero.EnumToStringHeroClass()+
+                    "\nlevel : "+hero.getLeval()+
+                    "\nXP : "+hero.getXP()+
+                    "\nArtefacs : "+hero.EnumToStringHeroEfacsEnum());
+        }
         
         public void PrintOutStates(BasicHero hero, boolean call){
-            if (outChanal){
-                
-            }else if (call){
-                
+            updateinfoscreen(hero);
+
+            if (call){
+                printtoconsole(bridge.getInfoScreen());
             }
         }
 

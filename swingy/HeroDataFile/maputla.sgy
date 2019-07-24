@@ -1,15 +1,15 @@
 maputla
 Attack
 4
-990
+1240
 Attack
-.
+A
 false
 false
 12
+13
 12
-12
-12
+13
 25
 #########################
 .ba.....A.AAA.A....AA..A.
@@ -24,7 +24,7 @@ CC..A.C.A.A.A..AA.A...A.A
 A.AAC..AA...AA.B...AC....
 .A...A.....AA.....A.AACB.
 .A..AC.A..AAABA.AA.A..BC.
-A.A..CA.CAA.MA..AAA.AAAC.
+A.A..CA.CAA..M..AAA.AAAC.
 C.AAA.....A..CAA....CA...
 .AB.AC.....AC...BA.A.A.A.
 .C.A.CAAA.CA.....A.BAAA..
@@ -50,7 +50,7 @@ CC..A.C.A.A.A..AA.A...A.A
 A.AAC..AA...AA.B...AC....
 .A...A.....AA.....A.AACB.
 .A..AC.A..AAABA.AA.A..BC.
-A.A..CA.CAA.MA..AAA.AAAC.
+A.A..CA.CAA..M..AAA.AAAC.
 C.AAA.....A..CAA....CA...
 .AB.AC.....AC...BA.A.A.A.
 .C.A.CAAA.CA.....A.BAAA..

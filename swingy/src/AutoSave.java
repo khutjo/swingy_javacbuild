@@ -1,10 +1,38 @@
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class AutoSave {
     private String FileName;
     private BasicHero Hero;
 
+    
+    private Stack<String> getFileData(String openfile) {
+		Stack<String> fileData = new Stack<String>();
+		// Iterator<String> tempIterator;
+		String HoldString;
+
+//		System.out.println("--->B");
+		File InFile = new File(openfile);
+		//System.out.println("hello");
+		try{Scanner FileReader = new Scanner(InFile);
+				while (FileReader.hasNextLine()){
+					HoldString = FileReader.nextLine();
+					HoldString = HoldString.trim();
+					fileData.push(HoldString);
+				}
+				FileReader.close();
+		}catch (FileNotFoundException e){
+				return (null);
+		}
+		return (fileData);
+	}
+    
+    
     private boolean booleanToString (boolean bool){
         if (bool)
             return true;
@@ -67,5 +95,23 @@ public class AutoSave {
         // SaveStatus();
     }    
     
+    public AutoSave savefull (){
+        Stack<String> basefile = getFileData("HeroDataFile/SavedHero.bin");
+        basefile.push(Hero.getHeroName()+".sgy");
+        try{  
+            Iterator<String> Newfilenames = basefile.iterator();
+            FileWriter fw=new FileWriter("HeroDataFile/SavedHero.bin");   
+            while (Newfilenames.hasNext())
+                fw.write(Newfilenames.next());
+                if (Newfilenames.hasNext())
+                    fw.write("\n");
+            fw.close();    
+           }catch(Exception e){
+                System.out.println(e);
+                System.out.println("AutoSavefull failed");
+                System.exit(0);
+           }
+        return this;
+    }  
 }
 

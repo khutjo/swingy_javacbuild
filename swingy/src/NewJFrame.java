@@ -239,6 +239,7 @@ public class NewJFrame extends javax.swing.JFrame {
             bridge.setDirection("north").setTX(true).setdirection(false);
             bridge.Getrequet();
                 jTextArea3.setText(bridge.getContent());
+                jTextArea1.setText(bridge.getInfoScreen());
         }
     }//GEN-LAST:event_jButton10MouseClicked
 
@@ -249,6 +250,7 @@ public class NewJFrame extends javax.swing.JFrame {
             bridge.setDirection("south").setTX(true).setdirection(false);
             bridge.Getrequet();
                 jTextArea3.setText(bridge.getContent());
+                jTextArea1.setText(bridge.getInfoScreen());
         }
     }//GEN-LAST:event_jButton11MouseClicked
 
@@ -259,6 +261,7 @@ public class NewJFrame extends javax.swing.JFrame {
             bridge.setDirection("west").setTX(true).setdirection(false);
             bridge.Getrequet();
                 jTextArea3.setText(bridge.getContent());
+                jTextArea1.setText(bridge.getInfoScreen());
         }
     }//GEN-LAST:event_jButton7MouseClicked
 
@@ -269,6 +272,7 @@ public class NewJFrame extends javax.swing.JFrame {
             bridge.setDirection("east").setTX(true).setdirection(false);
             bridge.Getrequet();
                 jTextArea3.setText(bridge.getContent());
+                jTextArea1.setText(bridge.getInfoScreen());
         }
                 
     }//GEN-LAST:event_jButton8MouseClicked
@@ -279,8 +283,8 @@ public class NewJFrame extends javax.swing.JFrame {
         if (bridge.getchoose()){
             bridge.setChoose("yes").setTX(true).setchoose(false);
             bridge.Getrequet();
-
                 jTextArea3.setText(bridge.getContent());
+                jTextArea1.setText(bridge.getInfoScreen());
         }
     }//GEN-LAST:event_jButton12MouseClicked
 
@@ -292,6 +296,7 @@ public class NewJFrame extends javax.swing.JFrame {
             bridge.Getrequet();
             
                 jTextArea3.setText(bridge.getContent());
+                jTextArea1.setText(bridge.getInfoScreen());
         }
     }//GEN-LAST:event_jButton9MouseClicked
 
@@ -299,8 +304,11 @@ public class NewJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiToConsoleController bridge = GuiToConsoleController.getBridgeIntance();
         if (bridge.gettextfield()){
-            bridge.setTextField(jTextArea3.getText()).setTX(true).settextField(false);
+            bridge.setTextField(jTextField2.getText()).setTX(true).settextField(false);
             bridge.Getrequet();
+                jTextField2.setText("");
+                jTextArea3.setText(bridge.getContent());
+                jTextArea1.setText(bridge.getInfoScreen());
         }
     }//GEN-LAST:event_jTextField2FocusLost
 
@@ -309,8 +317,11 @@ public class NewJFrame extends javax.swing.JFrame {
         if (evt.getKeyChar()=='\n'){
             GuiToConsoleController bridge = GuiToConsoleController.getBridgeIntance();
             if (bridge.gettextfield()){
-            bridge.setTextField(jTextArea3.getText()).setTX(true).settextField(false);
+            bridge.setTextField(jTextField2.getText()).setTX(true).settextField(false);
             bridge.Getrequet();
+                jTextField2.setText("");
+                jTextArea3.setText(bridge.getContent());
+                jTextArea1.setText(bridge.getInfoScreen());
         }
         }
     }//GEN-LAST:event_jTextField2KeyPressed
@@ -319,8 +330,11 @@ public class NewJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         GuiToConsoleController bridge = GuiToConsoleController.getBridgeIntance();
         if (bridge.gettextfield()){
-            bridge.setTextField(jTextArea3.getText()).setTX(true).settextField(false);
+            bridge.setTextField(jTextField2.getText()).setTX(true).settextField(false);
             bridge.Getrequet();
+                jTextField2.setText("");
+                jTextArea3.setText(bridge.getContent());
+                jTextArea1.setText(bridge.getInfoScreen());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
