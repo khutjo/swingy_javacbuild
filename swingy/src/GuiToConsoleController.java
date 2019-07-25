@@ -91,6 +91,7 @@ public class GuiToConsoleController {
             callorder += fightlogic.EngageFight(true);
             else if (input.equals("no"))
             callorder += fightlogic.EngageFight(false);
+            autosave.SaveStatus();
         }
         if (callorder == 4)
             callorder += fightlogic.DoTheyGetAnArtefacs();
@@ -98,7 +99,8 @@ public class GuiToConsoleController {
             callorder += fightlogic.GiveThemanefacs(input);
         if (callorder > 5){
             callorder = 0;
-            RunLogic(input);
+            playlogic.LevelUp();
+            callorder += playlogic.SetUpMove();
         }
 
         autosave.SaveStatus();
@@ -142,6 +144,7 @@ public class GuiToConsoleController {
            }
            if (callorder > 6){
                callorder = 0;
+               content = "";
                 herochosen = true;
                 playlogic = new PlayLogic(Hero, Printer, this);
                 fightlogic = new Fight(Hero, Printer, this);
@@ -164,30 +167,24 @@ public class GuiToConsoleController {
        switch (Choose) {
            case "yes":
                RunLogic(Choose);
-               System.out.println("yes");
                break;
            case "no":
                RunLogic(Choose);
-               System.out.println("no");
                break;
            default:
                break;
        }switch (Direction) {
            case "north":
                RunLogic(Direction);
-               System.out.println("north");
                break;
            case "west":
                RunLogic(Direction);
-               System.out.println("west");
                break;
            case "east":
                RunLogic(Direction);
-               System.out.println("east");
                break;
            case "south":
                RunLogic(Direction);
-               System.out.println("south");
                break;
            default:
                break;

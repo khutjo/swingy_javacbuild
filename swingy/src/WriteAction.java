@@ -1,4 +1,3 @@
-import javax.lang.model.util.ElementScanner6;
 
 public class WriteAction {
     private boolean outChanal;
@@ -28,7 +27,7 @@ public class WriteAction {
 
     private void setUpBridge(boolean state){
         bridge = GuiToConsoleController.getBridgeIntance();
-        bridge.setdirection(true)
+        bridge.setdirection(false)
                .setchoose(true)
                .settextField(false)
                .setstartgame(false)
@@ -48,7 +47,7 @@ public class WriteAction {
 
         private void printtogui(String text){
             bridge.SetContent(text).setRX(true);
-            System.out.print(text);
+            //System.out.print(text);
         }
 
         public void RePrint(){

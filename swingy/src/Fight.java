@@ -1,11 +1,5 @@
 // package swingy;
 
-import java.util.Scanner;
-
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Random;
 
 
@@ -30,24 +24,8 @@ public class Fight {
         Bridge = bridge;
     }
     
-    ///input 
-    private String getmoves(){
-        if (!FightRequest)
-            Printer.OutputplayTextln("You stumbled accross a monster do you want to fight it (yes/no) : ");
-        if (FightRequest)
-            Printer.OutputplayTextln(" do you fight (yes/no)");
-		return new ReadConsole().that();
-    }
 
-    public boolean UserChoose(){
-        String userinput = getmoves();
-        if (userinput.equals("yes"))
-            return true;
-        else if (userinput.equals("no"))
-            return false;
-        else
-            return UserChoose();
-    }
+
 
     private boolean GetYourLuck(){
         Random addspice = new Random();
@@ -81,24 +59,23 @@ public class Fight {
         String OldEfacs = basicHero.EnumToStringHeroEfacsEnum();
         String preout = Bridge.getContent();
         if (OldEfacs.equals(NewEfacs)){
-            Printer.OutputplayTextln(preout + "you already have this so what do you want to do (yes/no) : ");
+            Printer.OutputplayText(preout + "\nyou already have this so what do you want to do (yes/no) : ");
         }
         else if (OldEfacs.equals("HitPoints")){
-            Printer.OutputplayTextln(preout + "you have an XP booster do you want to take this? (yes/no) : ");
+            Printer.OutputplayText(preout + "\nyou have an XP booster do you want to take this? (yes/no) : ");
         }
         else if (OldEfacs.equals("Attack")){
-            Printer.OutputplayTextln(preout + "you have a Sword do you want to take this? (yes/no) : ");
+            Printer.OutputplayText(preout + "\nyou have a Sword do you want to take this? (yes/no) : ");
         }
         else if (OldEfacs.equals("Defense")){
-            Printer.OutputplayTextln(preout + "you have an Shield do you want to take this? (yes/no) : ");
+            Printer.OutputplayText(preout + "\nyou have an Shield do you want to take this? (yes/no) : ");
         }
         else if (OldEfacs.equals("none")){
-            Printer.OutputplayTextln(preout + "you have nothing just take it (yes/no) : ");
+            Printer.OutputplayText(preout + "\nyou have nothing just take it (yes/no) : ");
         }
     }
 
     public int GiveThemanefacs(String state){
-            //String HoldString = new ReadConsole().that();
             if (state.equals("yes")){
                 System.out.println("given");
                 basicHero.stringsetHeroEfacs(prize);}
@@ -113,32 +90,32 @@ public class Fight {
 
         if (chance < 3000){
             if (chance < 1000){
-                Printer.OutputplayTextln("The monster droped a sheild");
+                Bridge.SetContent(Bridge.getContent() +"\nThe monster droped a sheild");
                 prize = "Defense";
             }
             else if (chance > 2000){
-                Printer.OutputplayTextln("The monster droped a sword you will win more fights with this");
+                Bridge.SetContent(Bridge.getContent() +"\nThe monster droped a sword you will win more fights with this");
                 prize = "Attack";
             }
             else {
-                ///output
-                Printer.OutputplayTextln("The monster drop a thing that give you more hit points dont worry what it is");
+                Bridge.SetContent(Bridge.getContent() +"\nThe monster drop a thing that give you more hit points dont worry what it is");
                 prize = "HitPoints";
             }
             EfacsYouHave(prize);
             Bridge.setTX(false).setchoose(true);
             return 1;
         }
+        //Printer.OutputplayTextln(Bridge.getContent());
         return 2;
     }
     private void TheyWon(){
         int XP = basicHero.getXP();
         if (basicHero.EnumToStringHeroEfacsEnum().equals("HitPoints"))
-        XP += 50;
+            XP += 50;
         if (basicHero.EnumToStringHeroClass().equals("Attack"))
-        basicHero.setXP(XP + 250);
+            basicHero.setXP(XP + 250);
         else if (basicHero.EnumToStringHeroClass().equals("Defense"))
-        basicHero.setXP(XP + 100);
+            basicHero.setXP(XP + 100);
         basicHero.setMap(basicHero.getNewMap());
 
     }
@@ -173,23 +150,25 @@ public class Fight {
     public int SetUpFight(){
                 if (!basicHero.getFight()){
          	UpdateMap();
-                System.out.println("\nskip ");
+                Bridge.SetContent("Coast Is Clear keep moving");
 		return 4;
 	}
                 Bridge.setTX(false).setchoose(true);
-                System.out.println("\nnext ");
-                Printer.OutputplayTextln("You stumbled accross a monster do you want to fight it (yes/no) : ");
+                Printer.OutputplayText("You stumbled accross a monster do you want to fight it (yes/no) : ");
          return 1;
     }
     
     public int EngageFight(boolean choice){
 
-    //if (basicHero.EnumToStringHeroEfacsEnum().equals("Defense"))
-//        boolean choice = UserChoose();
         if (choice && DoILetThemWin()){
             TheyWon();
             basicHero.setFight(false);
-            Printer.OutputplayTextln("you bitch slapped it to death");
+            if (!FightRequest)
+                Bridge.SetContent("you bitch slapped it to death");
+            else{
+                Bridge.SetContent(Bridge.getContent() + "\npoor monster it did not know what it is getting itself into\nyou bitch slaped it to oblivion");
+                FightRequest = false;
+            }
             return 1;
         }else if (!choice){
             if (getrunLuck()){
@@ -200,25 +179,26 @@ public class Fight {
                 return 3;
             }
             else{
-                //output
-                Bridge.setTX(false).setchoose(true);
-                Printer.OutputplayTextln("The monster does not take no for an answer");
+                Bridge.SetContent("The monster does not take no for an answer");
                 FightRequest = true;
-                return 0;
+                return EngageFight(true);
             }
         }
         else {
             if (getDefenceLuck()){
                 RestMap();
-                Printer.OutputplayText("just as the monster rasies hes axe to kill you, you put up your sheild and block the fatal bow and get away ");
+                if (!FightRequest)                
+                     Bridge.SetContent("just as the monster rasies hes axe to kill you, you put up your sheild and block the fatal bow and get away ");
+                else
+                     Printer.OutputplayText(Bridge.getContent() + "without warning it stabs\nyou are on the ground an gust as it it about to finsih you off you use that last burst of energy to stab it in the gut which gives you time to run");
                 basicHero.setFight(false);
                 basicHero.setAtWall(false);
                 FightRequest = false;
                 return 3;
             }
-            ///output
+
                 new DeleteLoser(basicHero);
-                Printer.OutputplayTextln("you were kill brutaly but the gods of valhala accept your secrifice");
+                Printer.OutputplayText(Bridge.getContent() + "you were kill brutaly but the gods of valhala accept your secrifice");
                 System.exit(0);
         }
         return 0;
