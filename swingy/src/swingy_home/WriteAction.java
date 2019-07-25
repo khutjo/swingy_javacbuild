@@ -1,3 +1,5 @@
+package swingy_home;
+
 
 public class WriteAction {
     private boolean outChanal;

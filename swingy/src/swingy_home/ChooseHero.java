@@ -1,3 +1,5 @@
+package swingy_home;
+
 
 import java.util.Iterator;
 import java.util.Stack;
@@ -61,7 +63,6 @@ public class ChooseHero {
    }
    
    public int HeroChoice(String input, BasicHero hero){
-       System.out.print("herochoose in : "+ input);
         if (input.equals("-create")){
             Bridge.setInfoscreen("");
             return 1;

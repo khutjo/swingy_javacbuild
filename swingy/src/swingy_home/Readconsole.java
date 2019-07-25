@@ -1,3 +1,5 @@
+package swingy_home;
+
 // package swingy;
 
 import java.util.Scanner;

@@ -1,3 +1,5 @@
+package swingy_home;
+
 // package swingy;
 
 //************************************************************************************************
@@ -161,7 +163,6 @@ public class PlayLogic {
     }
     
     public int MakeMove(String move){
-        System.out.println("what"+move);
         MoveAdder(move);
         PutMoveToMap();
         ToWall();
