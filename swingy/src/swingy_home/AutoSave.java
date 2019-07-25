@@ -1,5 +1,3 @@
-package swingy_home;
-
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -102,11 +100,13 @@ public class AutoSave {
         basefile.push(Hero.getHeroName()+".sgy");
         try{  
             Iterator<String> Newfilenames = basefile.iterator();
-            FileWriter fw=new FileWriter("HeroDataFile/SavedHero.bin");   
+            FileWriter fw=new FileWriter("HeroDataFile/SavedHero.bin");
+            if (Newfilenames.hasNext()){
+                    fw.write(Newfilenames.next());  
+            }
             while (Newfilenames.hasNext())
-                fw.write(Newfilenames.next());
-                if (Newfilenames.hasNext())
-                    fw.write("\n");
+                fw.write("\n"+Newfilenames.next());
+                
             fw.close();    
            }catch(Exception e){
                 System.out.println(e);

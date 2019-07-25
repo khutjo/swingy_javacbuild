@@ -1,4 +1,4 @@
-package swingy_home;
+// package swingy;
 
 //************************************************************************************************
 //************************************************************************************************
@@ -52,6 +52,7 @@ public class PlayLogic {
             //System.out.println("A" + levelup);
         if (basicHero.getXP() > levelup){
             //System.out.println("B");
+            Bridge.SetContent(Bridge.getContent() + "\nLevelUP");
             basicHero.setLevel(1 + basicHero.getLeval());
         }
         if (basicHero.getAtWall()){
@@ -60,6 +61,7 @@ public class PlayLogic {
             UnSetAtWalL();
             basicHero.setMap(new GenMap().makemap(basicHero.getLeval()));
             basicHero.setNewMap(basicHero.getMap());
+            Bridge.SetContent(Bridge.getContent() + "\nmap comleted new map");
         }
     }
 
@@ -114,7 +116,6 @@ public class PlayLogic {
         char [][] map = basicHero.getMap();
         int [] MyCoords = {basicHero.getMyNewCoords()[0], basicHero.getMyNewCoords()[1]};
         if (map[MyCoords[0]][MyCoords[1]] != '.' && map[MyCoords[0]][MyCoords[1]] != 'M'){
-            System.out.println(map[MyCoords[0]][MyCoords[1]] +" "+ MyCoords[0] +" "+ MyCoords[1] );
             basicHero.setFight(true);
             basicHero.setEnemyClass(map[MyCoords[0]][MyCoords[1]]);
         }
@@ -155,7 +156,7 @@ public class PlayLogic {
         copymap();
         FindMyCoords(); 
         Bridge.setTX(false).setdirection(true);
-        Printer.OutputplayTextln("Enter direction : ");
+        Printer.OutputplayTextln(Bridge.getContent() + "\nEnter direction : ");
         return 1;
     }
     

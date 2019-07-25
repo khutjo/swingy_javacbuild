@@ -1,5 +1,3 @@
-package swingy_home;
-
 
 import java.util.Iterator;
 import java.util.Stack;

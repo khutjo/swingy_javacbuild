@@ -1,20 +1,18 @@
-package swingy_home;
-
 
 public class WriteAction {
     private boolean outChanal;
     private GuiToConsoleController bridge;
 
-    public WriteAction(String outpath){
+    public WriteAction(String []outpath){
 //        String outpath = "gui";
-        if (outpath.length() > 0){
-            if (outpath.equals("gui")){
+        if (outpath.length > 0){
+            if (outpath[0].equals("gui")){
                 outChanal = true;
                 NewJFrame hold = new NewJFrame();
                 hold.screen();
                 setUpBridge(true);
             }
-            else if (outpath.equals("console")){
+            else if (outpath[0].equals("console")){
                 outChanal = false;
                 setUpBridge(false);
             }else{
@@ -29,7 +27,7 @@ public class WriteAction {
 
     private void setUpBridge(boolean state){
         bridge = GuiToConsoleController.getBridgeIntance();
-        bridge.setdirection(true)
+        bridge.setdirection(false)
                .setchoose(true)
                .settextField(false)
                .setstartgame(false)
@@ -49,7 +47,7 @@ public class WriteAction {
 
         private void printtogui(String text){
             bridge.SetContent(text).setRX(true);
-            System.out.print(text);
+            //System.out.print(text);
         }
 
         public void RePrint(){

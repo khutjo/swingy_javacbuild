@@ -1,5 +1,3 @@
-package swingy_home;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -235,9 +233,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private void jButton10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseClicked
         // TODO add your handling code here:
         GuiToConsoleController bridge = GuiToConsoleController.getBridgeIntance();
-        System.out.println("\nnorth");
         if (bridge.getdirection()){
-            System.out.println("\nonorth in");
             bridge.setDirection("north").setTX(true).setdirection(false);
             bridge.Getrequet();
                 jTextArea3.setText(bridge.getContent());

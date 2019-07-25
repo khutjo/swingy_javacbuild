@@ -1,5 +1,3 @@
-package swingy_home;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -79,7 +77,6 @@ public class GuiToConsoleController {
    public GuiToConsoleController setRX (boolean state){RX = state; return this;}
    
    private void RunLogic(String input){
-                       System.out.println("\norder "+callorder);
         if (callorder == 0){
             playlogic.LevelUp();
             callorder += playlogic.SetUpMove();
@@ -94,6 +91,7 @@ public class GuiToConsoleController {
             callorder += fightlogic.EngageFight(true);
             else if (input.equals("no"))
             callorder += fightlogic.EngageFight(false);
+            autosave.SaveStatus();
         }
         if (callorder == 4)
             callorder += fightlogic.DoTheyGetAnArtefacs();
@@ -101,7 +99,8 @@ public class GuiToConsoleController {
             callorder += fightlogic.GiveThemanefacs(input);
         if (callorder > 5){
             callorder = 0;
-            RunLogic(input);
+            playlogic.LevelUp();
+            callorder += playlogic.SetUpMove();
         }
 
         autosave.SaveStatus();
@@ -110,7 +109,6 @@ public class GuiToConsoleController {
    
    private boolean IsGameOn(){
        if (!startgame){
-       System.out.println("\nletmeee ");
            if (Choose.equals("yes")){
                 startgame = true;
                 Choose = "";
@@ -124,7 +122,6 @@ public class GuiToConsoleController {
    }
    
    private boolean IsHeroChosen(){
-       System.out.println("\norder "+callorder);
        if (!herochosen){
            //System.out.println("chooser in");
            if (callorder == 0)
@@ -147,6 +144,7 @@ public class GuiToConsoleController {
            }
            if (callorder > 6){
                callorder = 0;
+               content = "";
                 herochosen = true;
                 playlogic = new PlayLogic(Hero, Printer, this);
                 fightlogic = new Fight(Hero, Printer, this);
@@ -169,30 +167,24 @@ public class GuiToConsoleController {
        switch (Choose) {
            case "yes":
                RunLogic(Choose);
-               System.out.println("yes");
                break;
            case "no":
                RunLogic(Choose);
-               System.out.println("no");
                break;
            default:
                break;
        }switch (Direction) {
            case "north":
                RunLogic(Direction);
-               System.out.println("north");
                break;
            case "west":
                RunLogic(Direction);
-               System.out.println("west");
                break;
            case "east":
                RunLogic(Direction);
-               System.out.println("east");
                break;
            case "south":
                RunLogic(Direction);
-               System.out.println("south");
                break;
            default:
                break;
@@ -209,12 +201,6 @@ public class GuiToConsoleController {
         herochooser = new ChooseHero(savedheros, printer, this);
         callorder = 0;
 
-       //while (true){
-          // if (Choose.equals("yes")){
-           //    System.out.println("hello");
-         //      System.exit(0);
-       //    }
-       //}
    }
    
    private boolean validinput(){
